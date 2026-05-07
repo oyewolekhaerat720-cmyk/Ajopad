@@ -3,100 +3,75 @@ import { MdGroupAdd } from "react-icons/md";
 import { formatMoney } from "../../utils/helpers";
 
 export const CreateGroupModal = ({ onClose, onCreate, formData, setFormData }) => {
-  
   const totalTarget = formData.amount && formData.dur 
     ? formatMoney(parseInt(formData.amount) * parseInt(formData.dur))
     : "—";
 
   return (
-    <div 
-      className="ov fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-6"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div className="mod bg-bg2 border border-border2 rounded-3xl p-9 w-full max-w-md max-h-[90vh] overflow-y-auto relative">
+    <div className="ov" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="mod">
+        <button className="mc" onClick={onClose}><FaTimes /></button>
+        <div className="mt"><MdGroupAdd size={28} /> Create a new group</div>
+        <div className="ms">Set up your savings circle in seconds. An icon will be assigned automatically.</div>
         
-        {/* Close Button */}
-        <button 
-          className="mc absolute top-6 right-6 text-2xl text-ink3 hover:text-ink transition-colors"
-          onClick={onClose}
-        >
-          <FaTimes />
-        </button>
-
-        {/* Title */}
-        <div className="mt flex items-center gap-3 text-ink mb-1">
-          <MdGroupAdd size={28} className="text-gold" /> 
-          Create a new group
+        <div className="fg">
+          <label className="fl">Group Name *</label>
+          <input 
+            className="fi" 
+            placeholder="e.g. Lagos Hustlers" 
+            value={formData.name} 
+            onChange={e => setFormData({ ...formData, name: e.target.value })} 
+          />
         </div>
-        <div className="ms text-ink2 mb-8">Set up your savings circle in seconds</div>
-
-        <div className="space-y-6">
-          {/* Group Name */}
+        
+        <div className="fg">
+          <label className="fl">Description</label>
+          <input 
+            className="fi" 
+            placeholder="What is this group saving for?" 
+            value={formData.desc} 
+            onChange={e => setFormData({ ...formData, desc: e.target.value })} 
+          />
+        </div>
+        
+        <div className="fr">
           <div className="fg">
-            <label className="fl">Group Name *</label>
-            <input 
-              className="fi" 
-              placeholder="e.g. Lagos Hustlers" 
-              value={formData.name} 
-              onChange={e => setFormData({ ...formData, name: e.target.value })} 
-            />
-          </div>
-
-          {/* Description */}
-          <div className="fg">
-            <label className="fl">Description</label>
-            <input 
-              className="fi" 
-              placeholder="What is this group saving for?" 
-              value={formData.desc} 
-              onChange={e => setFormData({ ...formData, desc: e.target.value })} 
-            />
-          </div>
-
-          {/* Amount + Frequency */}
-          <div className="fr grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="fg">
-              <label className="fl">Amount (₦) *</label>
-              <input 
-                className="fi" 
-                type="number" 
-                placeholder="e.g. 25000" 
-                value={formData.amount} 
-                onChange={e => setFormData({ ...formData, amount: e.target.value })} 
-              />
-            </div>
-            <div className="fg">
-              <label className="fl">Frequency</label>
-              <select 
-                className="fsl" 
-                value={formData.freq} 
-                onChange={e => setFormData({ ...formData, freq: e.target.value })}
-              >
-                {["Weekly", "Bi-weekly", "Monthly", "Quarterly"].map(f => (
-                  <option key={f} value={f}>{f}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Duration */}
-          <div className="fg">
-            <label className="fl">Duration (cycles)</label>
+            <label className="fl">Amount (₦) *</label>
             <input 
               className="fi" 
               type="number" 
-              placeholder="e.g. 12" 
-              value={formData.dur} 
-              onChange={e => setFormData({ ...formData, dur: e.target.value })} 
+              placeholder="e.g. 25000" 
+              value={formData.amount} 
+              onChange={e => setFormData({ ...formData, amount: e.target.value })} 
             />
-            <div className="fh text-xs text-ink3 mt-1.5">
-              Total target: <span className="text-gold font-medium">{totalTarget}</span>
-            </div>
+          </div>
+          <div className="fg">
+            <label className="fl">Frequency</label>
+            <select 
+              className="fsl" 
+              value={formData.freq} 
+              onChange={e => setFormData({ ...formData, freq: e.target.value })}
+            >
+              {["Weekly", "Bi-weekly", "Monthly", "Quarterly"].map(f => (
+                <option key={f}>{f}</option>
+              ))}
+            </select>
           </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="mf flex gap-3 mt-10 justify-end">
+        
+        <div className="fg">
+          <label className="fl">Duration (cycles)</label>
+          <input 
+            className="fi" 
+            type="number" 
+            placeholder="e.g. 12" 
+            value={formData.dur} 
+            onChange={e => setFormData({ ...formData, dur: e.target.value })} 
+          />
+          <div className="fh">Total target: {totalTarget}</div>
+        </div>
+        
+        <div className="mf">
           <button className="bs" onClick={onClose}>Cancel</button>
           <button className="bp" onClick={onCreate}>Create Group →</button>
         </div>

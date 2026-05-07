@@ -1,25 +1,21 @@
-import { getGroupIcon } from "../../utils/helpers";
+import { MdHome, MdWork, MdLocationCity, MdGroup } from "react-icons/md";
+
+// Icon mapping
+const iconMap = {
+  home: <MdHome size={34} />,
+  work: <MdWork size={34} />,
+  location_city: <MdLocationCity size={34} />,
+};
 
 export const GroupDetailHeader = ({ group }) => (
-  <div className="flex items-center gap-4 mt-4">
-    {/* Icon */}
-    <div className="w-14 h-14 bg-gold-dim rounded-2xl flex items-center justify-center text-3xl flex-shrink-0">
-      {getGroupIcon(group.icon, { size: 28 })}
+  <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 14 }}>
+    <div style={{ fontSize: 34, width: 54, height: 54, background: "var(--gold-dim)", borderRadius: 13, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {iconMap[group.icon] || <MdGroup size={34} />}
     </div>
-
-    {/* Text Content */}
-    <div className="flex-1 min-w-0">
-      <div className="pt font-fd text-[34px] font-semibold text-ink tracking-[-0.5px] leading-none">
-        {group.name}
-      </div>
-      <div className="ps text-ink2 text-[13px] mt-1">
-        {group.description}
-      </div>
+    <div>
+      <div className="pt">{group.name}</div>
+      <div className="ps">{group.description}</div>
     </div>
-
-    {/* Status Badge */}
-    <span className={`gst ${group.status || 'active'} ml-auto`}>
-      {group.status || 'Active'}
-    </span>
+    <span className={`gst ${group.status}`} style={{ marginLeft: "auto" }}>{group.status}</span>
   </div>
 );

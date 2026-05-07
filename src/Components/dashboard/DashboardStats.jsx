@@ -22,7 +22,7 @@ export const DashboardStats = ({ totalSaved, activeGroups, totalMembers, groupsC
           {stat.subtext && <div className="scc">{stat.subtext}</div>}
           <div className="sci">{stat.icon}</div>
         </div>
-      ))}AV
+      ))}
     </div>
   );
 };

@@ -4,18 +4,14 @@ export const Avatar = ({ name, size = "md" }) => {
   const colors = getColorForName(name);
   const sizes = { sm: 26, md: 34, lg: 44 };
   
-  const sizeClasses = {
-    sm: "w-[26px] h-[26px] text-[10px]",
-    md: "w-[34px] h-[34px] text-[12px]",
-    lg: "w-[44px] h-[44px] text-[14px]"
-  };
-  
   return (
     <div 
-      className={`flex items-center justify-center rounded-full flex-shrink-0 font-semibold ${sizeClasses[size]}`}
+      className="tav" 
       style={{ 
         background: colors.bg, 
-        color: colors.c
+        color: colors.c, 
+        width: sizes[size], 
+        height: sizes[size] 
       }}
     >
       {name[0]}
