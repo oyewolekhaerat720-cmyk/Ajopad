@@ -13,17 +13,20 @@ export const MembersPage = ({ groups }) => {
 
   return (
     <>
-      <PageHeader title="All <em>Members</em>" subtitle="Everyone across your savings circles" />
+      <PageHeader 
+        title="All <em>Members</em>" 
+        subtitle="Everyone across your savings circles" 
+      />
       
-      <div className="card">
-        <table className="tbl">
+      <div className="card bg-card border border-border rounded-xl overflow-hidden">
+        <table className="tbl w-full min-w-[520px] border-collapse">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Group</th>
-              <th>Role</th>
-              <th>Contributions</th>
-              <th>Status</th>
+              <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Name</th>
+              <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Group</th>
+              <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Role</th>
+              <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Contributions</th>
+              <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -32,30 +35,30 @@ export const MembersPage = ({ groups }) => {
               const roleType = member.role === "Admin" ? "warning" : "default";
               
               return (
-                <tr key={i}>
-                  <td>
-                    <div className="tnc">
+                <tr key={i} className="hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="tnc flex items-center gap-3">
                       <Avatar name={member.name} />
                       <div>
-                        <div className="tn">{member.name}</div>
-                        <div className="tr">{member.phone}</div>
+                        <div className="tn text-ink font-medium">{member.name}</div>
+                        <div className="tr text-ink3 text-xs font-fm">{member.phone}</div>
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <span style={{ fontSize: 12, color: "var(--ink2)" }}>
+                  <td className="px-6 py-4">
+                    <span className="text-ink2 text-sm">
                       {member.groupIcon} {member.groupName}
                     </span>
                   </td>
-                  <td>
+                  <td className="px-6 py-4">
                     <Badge type={roleType}>{member.role}</Badge>
                   </td>
-                  <td>
-                    <span style={{ fontFamily: "var(--fm)", fontSize: 12 }}>
+                  <td className="px-6 py-4">
+                    <span className="font-fm text-sm text-ink2">
                       {member.paid}/{member.total}
                     </span>
                   </td>
-                  <td>
+                  <td className="px-6 py-4">
                     <Badge type={statusType}>{member.status}</Badge>
                   </td>
                 </tr>

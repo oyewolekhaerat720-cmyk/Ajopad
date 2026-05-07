@@ -1,36 +1,26 @@
 import React from 'react';
 
 export const Badge = ({ type, children }) => {
-  const getBadgeStyles = (type) => {
+  const getBadgeClasses = (type) => {
     switch (type) {
       case 'active':
-        return { backgroundColor: '#4CAF50', color: 'white' };
+        return 'bg-green text-white border border-[rgba(42,157,106,0.2)]';
       case 'inactive':
-        return { backgroundColor: '#9E9E9E', color: 'white' };
+        return 'bg-ink3 text-white border border-border';
       case 'pending':
-        return { backgroundColor: '#FF9800', color: 'white' };
+        return 'bg-gold-dim text-gold border border-[rgba(201,168,76,0.2)]';
       case 'admin':
-        return { backgroundColor: '#2196F3', color: 'white' };
+        return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
       case 'member':
-        return { backgroundColor: '#607D8B', color: 'white' };
+        return 'bg-[rgba(90,82,72,0.15)] text-ink3 border border-border';
       default:
-        return { backgroundColor: '#9E9E9E', color: 'white' };
+        return 'bg-ink3 text-white border border-border';
     }
   };
 
-  const styles = getBadgeStyles(type);
-
   return (
     <span
-      style={{
-        ...styles,
-        padding: '4px 8px',
-        borderRadius: '4px',
-        fontSize: '12px',
-        fontWeight: 'bold',
-        display: 'inline-block',
-        textTransform: 'capitalize'
-      }}
+      className={`inline-flex items-center gap-1 text-[10px] px-2 py-[3px] rounded-full font-medium font-family-fm ${getBadgeClasses(type)}`}
     >
       {children}
     </span>

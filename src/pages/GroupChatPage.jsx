@@ -70,41 +70,38 @@ export const GroupChatPage = ({
 
   return (
     <>
-      <PageHeader title="Group <em>Chat</em>" subtitle="A premium chat room for your savings circle conversations." />
+      <PageHeader 
+        title="Group <em>Chat</em>" 
+        subtitle="A premium chat room for your savings circle conversations." 
+      />
 
-      <div className="gg" style={{ gap: 20, alignItems: "flex-start", height: "calc(100vh - 200px)" }}>
-        <aside style={{ width: 320, minWidth: 280, display: "flex", flexDirection: "column", gap: 18 }}>
-          <div className="card" style={{ padding: 20, flex: 1 }}>
-            <div className="ctit">Your Groups</div>
-            <div style={{ marginTop: 18, display: "grid", gap: 12, overflowY: "auto" }}>
+      <div className="gg grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-5 lg:gap-5 h-[calc(100vh-200px)]">
+        
+        {/* Sidebar */}
+        <aside className="flex flex-col gap-5">
+          {/* Groups List */}
+          <div className="card bg-card border border-border rounded-xl p-5 flex-1 flex flex-col">
+            <div className="ctit font-fd text-[17px] font-semibold text-ink mb-4">Your Groups</div>
+            
+            <div className="flex-1 overflow-y-auto space-y-3 pr-2">
               {groups.map(group => {
                 const selected = selectedChatGroupId === group.id;
                 return (
                   <button
                     key={group.id}
-                    type="button"
                     onClick={() => onSelectChatGroup(group.id)}
-                    style={{
-                      width: "100%",
-                      textAlign: "left",
-                      padding: 14,
-                      borderRadius: 18,
-                      border: selected ? "1px solid var(--gold)" : "1px solid rgba(255,255,255,.08)",
-                      background: selected ? "rgba(255,215,0,.12)" : "rgba(255,255,255,.02)",
-                      color: "var(--ink)",
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr",
-                      gap: 12,
-                      alignItems: "center",
-                      transition: "all 0.2s ease"
-                    }}
+                    className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 grid grid-cols-[auto_1fr] gap-3 items-center ${
+                      selected 
+                        ? "border-gold bg-gold-dim" 
+                        : "border-border/50 bg-card hover:bg-card2"
+                    }`}
                   >
-                    <div style={{ width: 42, height: 42, borderRadius: 14, background: "rgba(255,255,255,.08)", display: "grid", placeItems: "center" }}>
+                    <div className="w-10 h-10 bg-white/10 rounded-2xl flex items-center justify-center">
                       {getGroupIcon(group.icon, { size: 22 })}
                     </div>
                     <div>
-                      <div className="pt" style={{ fontSize: 14 }}>{group.name}</div>
-                      <div className="ps" style={{ fontSize: 12 }}>{group.members.length} members</div>
+                      <div className="text-ink text-[14px] font-medium">{group.name}</div>
+                      <div className="text-ink3 text-xs mt-0.5">{group.members.length} members</div>
                     </div>
                   </button>
                 );
@@ -112,224 +109,173 @@ export const GroupChatPage = ({
             </div>
           </div>
 
-          <div className="card" style={{ padding: 20 }}>
-            <div className="ctit">Chat summary</div>
-            <div style={{ marginTop: 14, display: "grid", gap: 12 }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}><span>Groups</span><strong>{groups.length}</strong></div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}><span>Messages</span><strong>{groups.reduce((sum, g) => sum + (g.messages?.length || 0), 0)}</strong></div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}><span>Active group</span><strong>{activeGroup?.name ?? "None"}</strong></div>
+          {/* Chat Summary */}
+          <div className="card bg-card border border-border rounded-xl p-5">
+            <div className="ctit font-fd text-[17px] font-semibold text-ink mb-4">Chat summary</div>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between"><span className="text-ink2">Groups</span><strong className="text-ink">{groups.length}</strong></div>
+              <div className="flex justify-between"><span className="text-ink2">Messages</span><strong className="text-ink">
+                {groups.reduce((sum, g) => sum + (g.messages?.length || 0), 0)}
+              </strong></div>
+              <div className="flex justify-between"><span className="text-ink2">Active group</span><strong className="text-ink">{activeGroup?.name ?? "None"}</strong></div>
             </div>
           </div>
         </aside>
 
-        <section style={{ flex: 1, display: "flex", flexDirection: "column", gap: 18, position: "relative" }}>
+        {/* Main Chat Area */}
+        <section className="flex flex-col gap-5 relative">
           {!activeGroup ? (
-            <div className="card" style={{ padding: 24, height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ textAlign: "center" }}>
-                <div className="pt" style={{ fontSize: 24, marginBottom: 8 }}>Select a group to start chatting</div>
-                <div className="ps">Choose any group from the left panel to sign in and access group chat only.</div>
+            <div className="card bg-card border border-border rounded-xl p-8 h-full flex items-center justify-center text-center">
+              <div>
+                <div className="pt font-fd text-2xl text-ink mb-3">Select a group to start chatting</div>
+                <div className="ps text-ink2">Choose any group from the left panel to sign in and access group chat.</div>
               </div>
             </div>
           ) : (
             <>
-              <div className="card" style={{ padding: 20, display: "flex", gap: 18, alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
-                  <div style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(255,255,255,.08)", display: "grid", placeItems: "center" }}>
+              {/* Group Header */}
+              <div className="card bg-card border border-border rounded-xl p-5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center">
                     {getGroupIcon(activeGroup.icon, { size: 26 })}
                   </div>
                   <div>
-                    <div className="pt" style={{ fontSize: 18 }}>{activeGroup.name}</div>
-                    <div className="ps">{activeGroup.description}</div>
+                    <div className="pt font-fd text-[18px] text-ink">{activeGroup.name}</div>
+                    <div className="ps text-ink2 text-sm">{activeGroup.description}</div>
                   </div>
                 </div>
+                
                 {isMemberLoggedIn && (
-                  <button className="bs bsm" onClick={onMemberLogout}>Sign out</button>
+                  <button onClick={onMemberLogout} className="bs bsm">
+                    Sign out
+                  </button>
                 )}
               </div>
 
+              {/* Member Login Form */}
               {!isMemberLoggedIn ? (
-                <div className="card" style={{ padding: 24, minHeight: 320, background: "rgba(8, 12, 20, 0.95)", border: "1px solid rgba(255,255,255,.08)" }}>
-                  <div className="ctit">Member login</div>
-                  <div className="ps" style={{ marginTop: 8 }}>Pick a group member and sign in to use chat-only access.</div>
-                  <div style={{ display: "grid", gap: 16, marginTop: 20 }}>
-                    <div style={{ display: "grid", gap: 8 }}>
+                <div className="card bg-card border border-border rounded-xl p-6">
+                  <div className="ctit font-fd text-[17px] font-semibold text-ink">Member login</div>
+                  <div className="ps text-ink2 mt-2">Pick a group member and sign in to use chat-only access.</div>
+
+                  <div className="mt-6 space-y-5">
+                    <div>
                       <label className="fl">Select group</label>
                       <select
                         value={memberLoginGroupId}
                         onChange={(e) => setMemberLoginGroupId(Number(e.target.value))}
-                        style={{
-                          width: "100%",
-                          padding: 14,
-                          borderRadius: 18,
-                          border: "1px solid rgba(255,255,255,.14)",
-                          background: "rgba(20, 26, 36, 0.95)",
-                          color: "var(--ink)",
-                          appearance: "none",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none"
-                        }}
+                        className="fi w-full"
                       >
                         {groups.map(group => (
                           <option key={group.id} value={group.id}>{group.name}</option>
                         ))}
                       </select>
                     </div>
-                    <div style={{ display: "grid", gap: 8 }}>
+
+                    <div>
                       <label className="fl">Select member</label>
                       <select
                         value={currentLoginMember?.id || ""}
                         onChange={(e) => setMemberLoginMemberId(Number(e.target.value))}
-                        style={{
-                          width: "100%",
-                          padding: 14,
-                          borderRadius: 18,
-                          border: "1px solid rgba(255,255,255,.14)",
-                          background: "rgba(20, 26, 36, 0.95)",
-                          color: "var(--ink)",
-                          appearance: "none",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none"
-                        }}
+                        className="fi w-full"
                       >
                         {currentLoginGroup?.members?.map(member => (
                           <option key={member.id} value={member.id}>{member.name}</option>
                         ))}
                       </select>
                     </div>
-                    <div style={{ display: "grid", gap: 8 }}>
+
+                    <div>
                       <label className="fl">Member access code</label>
                       <input
                         type="password"
                         value={memberLoginCode}
                         onChange={(e) => setMemberLoginCode(e.target.value)}
                         placeholder="Enter 4-digit code"
-                        style={{
-                          width: "100%",
-                          padding: 14,
-                          borderRadius: 18,
-                          border: "1px solid rgba(255,255,255,.14)",
-                          background: "rgba(20, 26, 36, 0.95)",
-                          color: "var(--ink)",
-                          outline: "none"
-                        }}
+                        className="fi w-full"
                       />
                     </div>
+
                     <button
-                      className="bp"
+                      className="bp w-full py-4 text-base"
                       onClick={() => onMemberLogin(currentLoginGroup.id, currentLoginMember?.id, memberLoginCode)}
-                      style={{
-                        background: "linear-gradient(135deg, rgba(255,203,96,1), rgba(216,158,22,1))",
-                        color: "#1b1a10",
-                        borderRadius: 999,
-                        minHeight: 52,
-                        boxShadow: "0 16px 32px rgba(255,189,74,.25)",
-                        border: "1px solid rgba(255,255,255,.14)"
-                      }}
                       disabled={!currentLoginMember || !memberLoginCode.trim()}
                     >
                       Sign in as {currentLoginMember?.name || "member"}
                     </button>
-                    <div className="ps" style={{ color: "var(--ink3)" }}>
+
+                    <div className="text-xs text-ink3 leading-relaxed">
                       This mode gives signed-in members chat access only. The rest of the app is locked while logged in.
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="card" style={{ padding: 24, display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                /* Chat Interface */
+                <div className="card bg-card border border-border rounded-xl flex-1 flex flex-col min-h-0 relative overflow-hidden">
+                  <div className="p-5 border-b border-border flex items-center justify-between">
                     <div>
-                      <div className="ctit" style={{ margin: 0 }}>Chat history</div>
-                      <div className="ps" style={{ marginTop: 4 }}>Signed in as <strong>{currentMember.name}</strong></div>
+                      <div className="ctit">Chat history</div>
+                      <div className="ps mt-1">Signed in as <strong className="text-ink">{currentMember.name}</strong></div>
                     </div>
-                    <span className="gst active" style={{ padding: "8px 14px", fontSize: 11 }}>Member access</span>
+                    <span className="gst active">Member access</span>
                   </div>
 
-                  <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: 16, paddingRight: 4, paddingBottom: 120 }}>
-                    {(activeGroup.messages?.length > 0 ? activeGroup.messages : [{ id: "empty", sender: "System", text: "No conversation yet — send the first message.", time: "" }])
-                      .map(msg => {
-                        const isOwn = msg.sender === currentMember.name;
-                        return (
-                          <div key={msg.id} style={{ display: "flex", justifyContent: isOwn ? "flex-end" : "flex-start" }}>
-                            <div style={{
-                              maxWidth: "75%",
-                              padding: 18,
-                              borderRadius: 22,
-                              background: isOwn ? "linear-gradient(135deg, rgba(255,215,0,.22), rgba(255,215,0,.12))" : "rgba(255,255,255,.05)",
-                              border: isOwn ? "1px solid rgba(255,215,0,.28)" : "1px solid rgba(255,255,255,.08)",
-                              color: "var(--ink)",
-                              boxShadow: isOwn ? "0 10px 30px rgba(255,215,0,.12)" : "0 2px 12px rgba(0,0,0,.08)"
-                            }}>
-                              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginBottom: 10, alignItems: "center" }}>
-                                <strong style={{ fontSize: 13, color: isOwn ? "var(--gold)" : "var(--ink2)" }}>{msg.sender}</strong>
-                                {msg.time && <span style={{ fontSize: 11, color: "var(--ink3)", opacity: 0.85 }}>{formatTime(msg.time)}</span>}
-                              </div>
-                              <div style={{ fontSize: 14, lineHeight: 1.7 }}>{msg.text}</div>
+                  {/* Messages Area */}
+                  <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                    {(activeGroup.messages?.length > 0 ? activeGroup.messages : [{
+                      id: "empty",
+                      sender: "System",
+                      text: "No conversation yet — send the first message.",
+                      time: ""
+                    }]).map(msg => {
+                      const isOwn = msg.sender === currentMember.name;
+                      return (
+                        <div key={msg.id} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
+                          <div className={`max-w-[75%] px-6 py-5 rounded-3xl ${
+                            isOwn 
+                              ? "bg-gradient-to-br from-gold/25 to-gold/10 border border-gold/30 shadow-xl" 
+                              : "bg-white/5 border border-white/10"
+                          }`}>
+                            <div className="flex justify-between items-center mb-3">
+                              <strong className={`text-xs ${isOwn ? "text-gold" : "text-ink2"}`}>
+                                {msg.sender}
+                              </strong>
+                              {msg.time && <span className="text-[11px] text-ink3">{formatTime(msg.time)}</span>}
+                            </div>
+                            <div className="text-[14px] leading-relaxed text-ink">
+                              {msg.text}
                             </div>
                           </div>
-                        );
-                      })}
+                        </div>
+                      );
+                    })}
                     <div ref={messagesEndRef} />
                   </div>
 
-                  <div style={{
-                    position: "absolute",
-                    bottom: 24,
-                    left: 24,
-                    right: 24,
-                    display: "grid",
-                    gridTemplateColumns: "1fr auto",
-                    gap: 12,
-                    alignItems: "end",
-                    background: "rgba(10, 14, 22, 0.98)",
-                    border: "1px solid rgba(255,255,255,.08)",
-                    borderRadius: 32,
-                    padding: "18px 18px",
-                    boxShadow: "0 20px 60px rgba(0,0,0,.35)"
-                  }}>
-                    <textarea
-                      ref={composerRef}
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder=""
-                      rows={1}
-                      style={{
-                        width: "100%",
-                        minHeight: 56,
-                        maxHeight: 140,
-                        borderRadius: 22,
-                        border: "1px solid rgba(255,255,255,.14)",
-                        background: "rgba(255,255,255,.08)",
-                        color: "var(--ink)",
-                        fontSize: 15,
-                        padding: "16px 18px",
-                        outline: "none",
-                        resize: "none",
-                        overflowY: "hidden",
-                        lineHeight: 1.7,
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,.08)",
-                        fontFamily: "var(--fb)"
-                      }}
-                    />
-                    <button
-                      className="bp"
-                      onClick={handleSend}
-                      disabled={!message.trim()}
-                      style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: "50%",
-                        background: message.trim() ? "linear-gradient(135deg, #ffce5f, #d89a0d)" : "rgba(255,215,0,.2)",
-                        color: message.trim() ? "#1b1a10" : "rgba(0,0,0,.4)",
-                        border: "none",
-                        display: "grid",
-                        placeItems: "center",
-                        boxShadow: message.trim() ? "0 16px 28px rgba(255,189,74,.25)" : "none",
-                        cursor: message.trim() ? "pointer" : "not-allowed"
-                      }}
-                    >
-                      <MdSend size={22} />
-                    </button>
+                  {/* Message Composer */}
+                  <div className="absolute bottom-6 left-6 right-6 bg-bg2 border border-border rounded-3xl p-4 shadow-2xl">
+                    <div className="flex gap-3 items-end">
+                      <textarea
+                        ref={composerRef}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Type your message..."
+                        rows={1}
+                        className="fi flex-1 min-h-[56px] max-h-[140px] resize-y py-4 px-5 text-[15px]"
+                      />
+                      <button
+                        onClick={handleSend}
+                        disabled={!message.trim()}
+                        className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${
+                          message.trim() 
+                            ? "bg-gradient-to-br from-gold to-gold2 text-bg shadow-gold" 
+                            : "bg-gold/20 text-gold/40 cursor-not-allowed"
+                        }`}
+                      >
+                        <MdSend size={22} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}

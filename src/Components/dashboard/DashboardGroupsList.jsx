@@ -9,52 +9,62 @@ export const DashboardGroupsList = ({ groups, onGroupSelect, onCreateGroup }) =>
   };
 
   return (
-    <div className="card cp">
-      <div className="cht">
+    <div className="card bg-card border border-border rounded-xl p-6">
+      <div className="cht flex justify-between items-start mb-6">
         <div>
-          <div className="ctit">Your Groups</div>
-          <div className="csub">All savings circles</div>
+          <div className="ctit font-fd text-[17px] font-semibold text-ink">Your Groups</div>
+          <div className="csub text-xs text-ink3 font-fm">All savings circles</div>
         </div>
-        <button className="bp bsm" onClick={onCreateGroup}>
+        <button className="bp bsm flex items-center gap-1.5" onClick={onCreateGroup}>
           <FiPlus size={14} /> New Group
         </button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {groups.map(group => (
-          <div 
-            key={group.id} 
-            style={{ 
-              display: "flex", 
-              alignItems: "center", 
-              flexWrap: "wrap",
-              gap: 14, 
-              padding: "13px 15px", 
-              background: "var(--bg3)", 
-              borderRadius: "var(--rs)", 
-              cursor: "pointer", 
-              transition: "border-color .15s", 
-              border: "1px solid var(--border)" 
-            }} 
-            onClick={() => onGroupSelect(group)}
-            onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(201,168,76,.3)"} 
-            onMouseLeave={e => e.currentTarget.style.borderColor = "var(--border)"}
-          >
-            <div style={{ fontSize: 22, width: 40, height: 40, background: "var(--gold-dim)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {getGroupIcon(group.icon, { size: 22 })}
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "var(--ink)", marginBottom: 4 }}>{group.name}</div>
-              <div className="pbar">
-                <div className="pfill" style={{ width: `${Math.round((group.collected / group.target) * 100)}%` }}></div>
+
+      <div className="flex flex-col gap-3">
+        {groups.map(group => {
+          const progress = Math.round((group.collected / group.target) * 100);
+          
+          return (
+            <div
+              key={group.id}
+              onClick={() => onGroupSelect(group)}
+              className="group flex items-center flex-wrap gap-4 p-4 bg-bg3 hover:bg-card2 border border-border hover:border-gold/30 rounded-xl cursor-pointer transition-all duration-200"
+            >
+              {/* Icon */}
+              <div className="w-10 h-10 bg-gold-dim rounded-xl flex items-center justify-center flex-shrink-0">
+                {getGroupIcon(group.icon, { size: 22 })}
               </div>
+
+              {/* Group Info */}
+              <div className="flex-1 min-w-0">
+                <div className="text-ink font-medium text-[13px] mb-2.5 line-clamp-1">
+                  {group.name}
+                </div>
+                <div className="pbar bg-bg3 h-1.5 rounded-full overflow-hidden">
+                  <div 
+                    className="pfill h-full bg-gradient-to-r from-gold to-gold2 transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Amount & Progress */}
+              <div className="text-right">
+                <div className="font-fd text-gold text-[15px] font-semibold">
+                  {formatMoney(group.collected)}
+                </div>
+                <div className="text-[10px] text-ink3 font-fm tracking-wider">
+                  {progress}%
+                </div>
+              </div>
+
+              {/* Status */}
+              <span className={getStatusClass(group.status)}>
+                {group.status}
+              </span>
             </div>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--gold)", fontFamily: "var(--fd)" }}>{formatMoney(group.collected)}</div>
-              <div style={{ fontSize: 10, color: "var(--ink3)", fontFamily: "var(--fm)" }}>{Math.round((group.collected / group.target) * 100)}%</div>
-            </div>
-            <span className={getStatusClass(group.status)}>{group.status}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

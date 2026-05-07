@@ -3,44 +3,60 @@ import { Badge } from "../shared/Badge";
 
 export const MembersTable = ({ members, onRemoveMember }) => {
   return (
-    <div className="card">
-      <table className="tbl">
+    <div className="card bg-card border border-border rounded-xl overflow-hidden">
+      <table className="tbl w-full min-w-[520px] border-collapse">
         <thead>
           <tr>
-            <th>Member</th>
-            <th>Code</th>
-            <th>Contributions</th>
-            <th>Status</th>
-            <th></th>
+            <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Member</th>
+            <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Code</th>
+            <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Contributions</th>
+            <th className="text-left px-6 py-4 text-xs font-medium text-ink3 uppercase tracking-wider font-fm">Status</th>
+            <th className="w-12"></th>
           </tr>
         </thead>
         <tbody>
           {members.map(member => {
-            const statusType = member.status === "paid" ? "success" : member.status === "current" ? "warning" : "default";
+            const statusType = member.status === "paid" 
+              ? "success" 
+              : member.status === "current" 
+                ? "warning" 
+                : "default";
             
             return (
-              <tr key={member.id}>
-                <td>
-                  <div className="tnc">
+              <tr key={member.id} className="hover:bg-white/5 transition-colors">
+                <td className="px-6 py-5">
+                  <div className="tnc flex items-center gap-3">
                     <Avatar name={member.name} />
                     <div>
-                      <div className="tn">{member.name}</div>
-                      <div className="tr">{member.role} · {member.phone}</div>
+                      <div className="tn text-ink font-medium">{member.name}</div>
+                      <div className="tr text-ink3 text-xs font-fm">
+                        {member.role} · {member.phone}
+                      </div>
                     </div>
                   </div>
                 </td>
-                <td>
-                  <span style={{ fontFamily: "var(--fm)", fontSize: 12, letterSpacing: 1 }}>{member.loginCode || "—"}</span>
+                <td className="px-6 py-5">
+                  <span className="font-fm text-sm tracking-widest text-ink2">
+                    {member.loginCode || "—"}
+                  </span>
                 </td>
-                <td>
-                  <span style={{ fontFamily: "var(--fm)", fontSize: 12 }}>{member.paid}/{member.total}</span>
+                <td className="px-6 py-5">
+                  <span className="font-fm text-sm text-ink2">
+                    {member.paid}/{member.total}
+                  </span>
                 </td>
-                <td>
+                <td className="px-6 py-5">
                   <Badge type={statusType}>{member.status}</Badge>
                 </td>
-                <td>
+                <td className="px-6 py-5 text-right">
                   {member.role !== "Admin" && (
-                    <button className="bi" onClick={() => onRemoveMember(member.id)} title="Remove">✕</button>
+                    <button 
+                      className="bi w-8 h-8 flex items-center justify-center text-lg hover:text-red-500 hover:border-red-500 transition-colors" 
+                      onClick={() => onRemoveMember(member.id)}
+                      title="Remove member"
+                    >
+                      ✕
+                    </button>
                   )}
                 </td>
               </tr>

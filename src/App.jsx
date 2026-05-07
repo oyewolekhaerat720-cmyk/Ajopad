@@ -19,8 +19,6 @@ import { INITIAL_GROUPS } from "./data/constants";
 import { getRandomGroupIcon } from "./utils/helpers";
 import "./index.css";
 
-
-
 export default function AjoPad() {
   const [view, setView] = useState("landing");
   const [currentPage, setCurrentPage] = useState("dashboard");
@@ -44,6 +42,7 @@ export default function AjoPad() {
   const [chatMessage, setChatMessage] = useState("");
   const [reminderNote, setReminderNote] = useState("");
   const [adminProfile, setAdminProfile] = useState({ fullName: "Chidi Obi", phone: "080-1234-5678", email: "chidi@email.com" });
+  
   const appMenu = [
     { id: "landing", label: "Home" },
     { id: "dashboard", label: "Dashboard" },
@@ -223,7 +222,7 @@ export default function AjoPad() {
         const replies = [
           "Sounds good — I'm on it.",
           "Nice one, let's keep this rolling.",
-          "I’ll update the group in a moment.",
+          "I'll update the group in a moment.",
           "Thanks for sharing. I agree with that.",
           "Perfect, that works for me."
         ];
@@ -291,7 +290,7 @@ export default function AjoPad() {
   // LANDING PAGE
   if (view === "landing") {
     return (
-      <div className="app">
+      <div className="min-h-screen">
         <Navbar onOpenApp={() => { setView("app"); setCurrentPage("dashboard"); }} />
         <LandingPage onOpenApp={() => { setView("app"); setCurrentPage("dashboard"); }} />
         <Footer />
@@ -302,8 +301,8 @@ export default function AjoPad() {
 
   // APP VIEW
   return (
-    <div className="app">
-      <div className="shell">
+    <div className="min-h-screen">
+      <div className="flex min-h-screen">
         <Sidebar
           activePage={currentPage}
           onPageChange={(page) => {
@@ -330,12 +329,12 @@ export default function AjoPad() {
           memberSession={memberSession}
           onMemberLogout={signOutMember}
         />
-        <main className="main">
-          <div className="mobile-app-nav">
+        <main className="flex-1 overflow-y-auto bg-bg min-h-0">
+          <div className="flex flex-wrap gap-2.5 p-[14px_18px] bg-bg2 border-b border-border md:hidden">
             {(memberSession ? [{ id: "groupchat", label: "Group Chat" }] : appMenu).map(item => (
               <button
                 key={item.id}
-                className={`mobile-nav-btn ${currentPage === item.id ? "act" : ""}`}
+                className={`text-xs text-ink2 bg-bg3 border border-border py-[9px] px-[14px] rounded-full cursor-pointer transition-all duration-200 whitespace-nowrap flex-1 min-w-[100px] ${currentPage === item.id ? "bg-gold text-[#060504] border-gold" : ""}`}
                 onClick={() => {
                   if (memberSession && item.id !== "groupchat") return;
                   if (item.id === "landing") {
@@ -354,7 +353,7 @@ export default function AjoPad() {
               </button>
             ))}
           </div>
-          <div className="mi">
+          <div className="p-[22px_18px] md:p-[36px_40px] max-w-[1160px] mx-auto">
             {currentPage === "dashboard" && !selectedGroup && (
               <DashboardPage
                 groups={groups}
