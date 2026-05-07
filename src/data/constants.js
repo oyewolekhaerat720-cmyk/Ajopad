@@ -1,0 +1,76 @@
+export const INITIAL_GROUPS = [
+  { 
+    id: 1, 
+    name: "Obi Family Ajo", 
+    icon: "home", 
+    description: "Monthly family savings for emergencies and investments",
+    amount: 25000, 
+    frequency: "Monthly", 
+    status: "active", 
+    collected: 175000, 
+    target: 300000,
+    startDate: "Jan 2025", 
+    duration: "12 months", 
+    nextPayout: "May 15, 2026",
+    members: [
+      { id: 1, name: "Chidi Obi", role: "Admin", phone: "080-1234-5678", paid: 7, total: 12, status: "current", loginCode: "4217" },
+      { id: 2, name: "Ngozi Obi", role: "Member", phone: "080-9876-5432", paid: 7, total: 12, status: "paid", loginCode: "8941" },
+      { id: 3, name: "Emeka Obi", role: "Member", phone: "081-2345-6789", paid: 6, total: 12, status: "pending", loginCode: "5629" },
+      { id: 4, name: "Adaeze Obi", role: "Member", phone: "070-3456-7890", paid: 7, total: 12, status: "paid", loginCode: "7032" },
+    ],
+    activity: [
+      { type: "g", text: "<strong>Ngozi Obi</strong> made a contribution of ₦25,000", time: "2 hours ago" },
+      { type: "go", text: "<strong>Adaeze Obi</strong> received payout of ₦100,000", time: "Yesterday" },
+      { type: "r", text: "<strong>Emeka Obi</strong> payment is overdue by 3 days", time: "3 days ago" },
+    ]
+  },
+  { 
+    id: 2, 
+    name: "Lagos Hustlers", 
+    icon: "work", 
+    description: "Weekly savings for young professionals in Lagos",
+    amount: 10000, 
+    frequency: "Weekly", 
+    status: "active", 
+    collected: 320000, 
+    target: 520000,
+    startDate: "Mar 2025", 
+    duration: "52 weeks", 
+    nextPayout: "May 10, 2026",
+    members: [
+      { id: 1, name: "Tunde Adeyemi", role: "Admin", phone: "080-1111-2222", paid: 31, total: 52, status: "paid", loginCode: "1894" },
+      { id: 2, name: "Fatima Bello", role: "Member", phone: "081-3333-4444", paid: 30, total: 52, status: "current", loginCode: "4201" },
+      { id: 3, name: "Segun Alade", role: "Member", phone: "070-5555-6666", paid: 31, total: 52, status: "paid", loginCode: "3367" },
+      { id: 4, name: "Amaka Eze", role: "Member", phone: "080-7777-8888", paid: 29, total: 52, status: "pending", loginCode: "5418" },
+      { id: 5, name: "Biodun Okafor", role: "Member", phone: "081-9999-0000", paid: 31, total: 52, status: "paid", loginCode: "7192" },
+      { id: 6, name: "Kemi Fashola", role: "Member", phone: "070-1234-9876", paid: 30, total: 52, status: "paid", loginCode: "2831" },
+    ],
+    activity: [
+      { type: "g", text: "<strong>Tunde Adeyemi</strong> contributed ₦10,000", time: "1 hour ago" },
+      { type: "g", text: "<strong>Segun Alade</strong> contributed ₦10,000", time: "3 hours ago" },
+      { type: "go", text: "Group milestone: 60% of target reached!", time: "Yesterday" },
+    ]
+  },
+  { 
+    id: 3, 
+    name: "Abuja Nwanne", 
+    icon: "location_city", 
+    description: "Bi-weekly Igbo community savings for business capital",
+    amount: 50000, 
+    frequency: "Bi-weekly", 
+    status: "pending", 
+    collected: 0, 
+    target: 600000,
+    startDate: "Jun 2026", 
+    duration: "6 months", 
+    nextPayout: "Jul 2026",
+    members: [
+      { id: 1, name: "Obiora Nwosu", role: "Admin", phone: "080-2222-3333", paid: 0, total: 12, status: "pending", loginCode: "4545" },
+      { id: 2, name: "Chisom Ike", role: "Member", phone: "081-4444-5555", paid: 0, total: 12, status: "pending", loginCode: "9812" },
+    ],
+    activity: [
+      { type: "go", text: "<strong>Obiora Nwosu</strong> created this group", time: "2 days ago" },
+      { type: "go", text: "Waiting for group to start on <strong>Jun 1, 2026</strong>", time: "2 days ago" },
+    ]
+  },
+];
