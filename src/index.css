@@ -86,13 +86,55 @@ button{font-family:var(--fb);}
 .feat-card p{font-size:13px;color:var(--ink2);line-height:1.7;font-weight:300;}
 
 /* TESTIMONIALS */
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px;}
-.testi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px;}
-.testi-stars{color:var(--gold);font-size:14px;margin-bottom:14px;}
-.testi-text{font-family:var(--fd);font-size:16px;font-style:italic;color:var(--ink);line-height:1.7;margin-bottom:18px;font-weight:300;}
-.testi-name{font-size:12px;font-weight:600;color:var(--ink2);font-family:var(--fm);}
-.testi-loc{font-size:11px;color:var(--ink3);font-family:var(--fm);}
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 60px;
+}
 
+.testi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px;
+}
+
+.testi-stars {
+  display: flex;
+  align-items: center;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.stars-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.testi-text {
+  font-family: var(--fd);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+
+.testi-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  font-family: var(--fm);
+}
+
+.testi-loc {
+  font-size: 11px;
+  color: var(--ink3);
+  font-family: var(--fm);
+}
 /* CTA */
 .cta-sec{padding:100px 52px;text-align:center;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.07) 0%,transparent 70%);}
 .cta-sec h2{font-family:var(--fd);font-size:clamp(40px,6vw,76px);font-weight:300;letter-spacing:-1.5px;margin-bottom:20px;line-height:1;}
